@@ -10,11 +10,11 @@ var DividerProps = {
   }
 };
 
-var Divider = React.createClass({
-  propTypes: {
+class Divider extends React.Component {
+  static propTypes = {
     inverse: types.bool,
     size: types.oneOf(['large'])
-  },
+  };
 
   render() {
     var {inverse, size, ...others} = this.props;
@@ -30,7 +30,7 @@ var Divider = React.createClass({
 
     return <hr {...props}/>;
   }
-});
+}
 
 function defDivider(props) {
   return React.createClass({

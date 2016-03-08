@@ -15,8 +15,16 @@ const TETHER_PLACEMENTS = {
 
 const privates = new WeakMap();
 
-const OverlayTrigger = React.createClass({
-  propTypes: {
+class OverlayTrigger extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    privates.set(this, {});
+    this.state = {
+      display: this.props.display
+    }
+  }
+
+  static propTypes = {
     delay: types.number,
     delayHide: types.number,
     delayShow: types.number,
@@ -28,24 +36,15 @@ const OverlayTrigger = React.createClass({
     placement: types.oneOf(['top', 'bottom', 'left', 'right']),
     rootClose: types.bool,
     trigger: types.oneOf(['hover', 'click', 'focus', 'manual'])
-  },
+  };
 
-  getDefaultProps() {
-    return {
-      display: false,
-      pin: true,
-      placement: 'right',
-      rootClose: true,
-      trigger: 'hover'
-    };
-  },
-
-  getInitialState() {
-    privates.set(this, {});
-    return {
-      display: this.props.display
-    }
-  },
+  static defaultProps = {
+    display: false,
+    pin: true,
+    placement: 'right',
+    rootClose: true,
+    trigger: 'hover'
+  };
 
   componentWillReceiveProps({display, rootClose}) {
     if(display !== this.props.display) this.setDisplay(display);
@@ -56,17 +55,17 @@ const OverlayTrigger = React.createClass({
         document.documentElement.removeEventListener('click', this.rootClick);
       }
     }
-  },
+  }
 
   componentDidMount() {
     if (!this.props.rootClose) return;
     document.documentElement.addEventListener('click', this.rootClick);
-  },
+  }
 
   componentWillUnmount() {
     if (!this.props.rootClose) return;
     document.documentElement.removeEventListener('click', this.rootClick);
-  },
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.display !== this.state.display) {
@@ -74,7 +73,7 @@ const OverlayTrigger = React.createClass({
       const callback = this.state.display ? onEntered : onExited;
       callback && callback();
     }
-  },
+  }
 
   triggerShow(eventType) {
     return (...args) => {
@@ -82,7 +81,7 @@ const OverlayTrigger = React.createClass({
       const userCallback = this.props.children.props[eventType];
       userCallback && userCallback(...args);
     }
-  },
+  }
 
   triggerHide(eventType) {
     return (...args) => {
@@ -90,19 +89,19 @@ const OverlayTrigger = React.createClass({
       const userCallback = this.props.children.props[eventType];
       userCallback && userCallback(...args);
     }
-  },
+  }
 
   getDelay(display) {
     const {delay, delayHide, delayShow} = this.props;
     if (display && delayShow) return delayShow;
     if (!display && delayHide) return delayHide;
     return delay;
-  },
+  }
 
   rootClick(e) {
     if (ReactDOM.findDOMNode(this).contains(e.target)) return;
     this.hide();
-  },
+  }
 
   setDisplay(display) {
     clearTimeout(privates.get(this).timeout);
@@ -116,21 +115,21 @@ const OverlayTrigger = React.createClass({
     }
 
     privates.set(this, {timeout});
-  },
+  }
 
   click(...args) {
     this.setDisplay(!this.state.display);
     const userCallback = this.props.children.props.onClick;
     userCallback && userCallback(...args);
-  },
+  }
 
   show() {
     this.setDisplay(true);
-  },
+  }
 
   hide() {
     this.setDisplay(false)
-  },
+  }
 
   render() {
     const {pin, placement, trigger} = this.props;
@@ -175,7 +174,7 @@ const OverlayTrigger = React.createClass({
       </TetherComponent>
     );
   }
-});
+}
 
 module.exports = {
   OverlayTrigger

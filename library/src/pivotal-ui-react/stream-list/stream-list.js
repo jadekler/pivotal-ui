@@ -3,13 +3,13 @@ import {UIButton} from 'pui-react-buttons';
 import {GroupList, ListItem} from 'pui-react-lists';
 import AnimationMixin from 'pui-react-animation';
 
-const StreamListNewItemsButton = React.createClass({
-  propTypes: {
+class StreamListNewItemsButton extends React.Component {
+  static propTypes = {
     showNewItems: React.PropTypes.func.isRequired,
     singularNewItemText: React.PropTypes.string,
     pluralNewItemsText: React.PropTypes.string,
     numNewItems: React.PropTypes.number.isRequired
-  },
+  };
 
   render() {
     return (
@@ -20,38 +20,38 @@ const StreamListNewItemsButton = React.createClass({
       </UIButton>
     );
   }
-});
+}
 
-export const StreamList = React.createClass({
-  mixins: [AnimationMixin],
+export class StreamList extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {numRenderedItems: this.numTotalItems()};
+  }
+  mixins = [AnimationMixin];
 
-  propTypes: {
+  static propTypes = {
     singularNewItemText: React.PropTypes.string.isRequired,
     pluralNewItemsText: React.PropTypes.string.isRequired
-  },
+  };
 
-  getDefaultProps() {
+  static defaultProps() {
     return {
       singularNewItemText: 'new item',
       pluralNewItemsText: 'new items'
     };
-  },
-
-  getInitialState() {
-    return {numRenderedItems: this.numTotalItems()};
-  },
+  }
 
   numTotalItems() {
     return React.Children.count(this.props.children);
-  },
+  }
 
   numNewItems() {
     return this.numTotalItems() - this.state.numRenderedItems;
-  },
+  }
 
   showNewItems() {
     this.setState({numRenderedItems: this.numTotalItems()});
-  },
+  }
 
   render() {
     const {children, singularNewItemText, pluralNewItemsText, ...others} = this.props;
@@ -80,6 +80,6 @@ export const StreamList = React.createClass({
       </div>
     );
   }
-});
+}
 
 export const StreamListItem = ListItem;

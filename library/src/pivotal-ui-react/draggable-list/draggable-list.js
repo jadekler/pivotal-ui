@@ -27,18 +27,19 @@ function childrenIndices(children) {
   return children.map((child, i) => i);
 }
 
-var DraggableList = React.createClass({
-  propTypes: {
-    onDragEnd: types.func,
-    innerClassName: types.string
-  },
-
-  getInitialState() {
-    return {
+class DraggableList extends React.Component{
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
       itemIndices: childrenIndices(this.props.children),
       draggingId: null
-    };
-  },
+    }
+  }
+
+  static propTypes = {
+    onDragEnd: types.func,
+    innerClassName: types.string
+  };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.children) {
@@ -47,19 +48,19 @@ var DraggableList = React.createClass({
         draggingId: null
       });
     }
-  },
+  }
 
   dragStart(draggingId, {dataTransfer}) {
     dataTransfer.effectAllowed = 'move';
     dataTransfer.dropEffect = 'move';
     dataTransfer.setData('text/plain', '');
     setTimeout(function() { this.setState({draggingId}); }.bind(this), 0);
-  },
+  }
 
   dragEnd() {
     this.setState({draggingId: null});
     this.props.onDragEnd && this.props.onDragEnd(this.state.itemIndices);
-  },
+  }
 
   dragEnter(e) {
     var {draggingId, itemIndices} = this.state;
@@ -71,7 +72,7 @@ var DraggableList = React.createClass({
 
     move(itemIndices, startIndex, endIndex);
     this.setState({itemIndices});
-  },
+  }
 
   render() {
     var grabbed, items = [];
@@ -96,7 +97,7 @@ var DraggableList = React.createClass({
       </ul>
     );
   }
-});
+}
 
 var DraggableListItem = React.createClass({
   mixins: [HoverMixin],

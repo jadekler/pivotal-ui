@@ -149,14 +149,15 @@ describe('Tabs', function() {
       beforeEach(function() {
         emitter = new EventEmitter();
 
-        const TestComponent = React.createClass({
-          getInitialState() {
-            return {defaultActiveKey: 2};
-          },
+        class TestComponent extends React.Component {
+          constructor(props, context) {
+            super(props, context);
+            this.state = {defaultActiveKey: 2};
+          }
 
           componentDidMount() {
             emitter.on('changeActiveKey', (key) => this.setState({defaultActiveKey: key}));
-          },
+          }
 
           render() {
             return (
@@ -166,7 +167,7 @@ describe('Tabs', function() {
               </BaseTabs>
             );
           }
-        });
+        }
 
         ReactDOM.render(<TestComponent />, root);
       });

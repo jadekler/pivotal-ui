@@ -5,39 +5,40 @@ var {getScrollTop, setScrollTop} = require('./scroll-top');
 import {mergeProps} from 'pui-react-helpers';
 import 'pui-css-back-to-top';
 
-var BackToTop = React.createClass({
-  mixins: [AnimationMixin],
+class BackToTop extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {visible: false};
+  }
 
-  propTypes: {
+  static mixins = [AnimationMixin];
+
+  static propTypes = {
     alwaysVisible: React.PropTypes.bool
-  },
+  };
 
-  statics: {
+  statics = {
     FADE_DURATION: 300,
     VISIBILITY_HEIGHT: 400,
     SCROLL_DURATION: 800
-  },
-
-  getInitialState() {
-    return {visible: false};
-  },
+  };
 
   componentDidMount() {
     this.updateScroll = throttle(this.updateScroll, 100);
     window.addEventListener('scroll', this.updateScroll);
-  },
+  }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.updateScroll);
-  },
+  }
 
   updateScroll() {
     this.setState({visible: getScrollTop() > BackToTop.VISIBILITY_HEIGHT});
-  },
+  }
 
   scrollToTop() {
     this.animate(value => setScrollTop(value), 0, BackToTop.SCROLL_DURATION, {startValue: getScrollTop()});
-  },
+  }
 
   render() {
     var {visible: visibleState} = this.state;
@@ -50,6 +51,6 @@ var BackToTop = React.createClass({
     );
     return <a {...props} onClick={this.scrollToTop} href="#top" aria-label="Back to top" />;
   }
-});
+}
 
 module.exports = {BackToTop};
