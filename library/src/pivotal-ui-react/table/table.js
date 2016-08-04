@@ -26,7 +26,7 @@ export class TableHeader extends React.Component {
   };
 
   render() {
-    const {sortable, ...others} = this.props;
+    const {onSortableTableHeaderClick, sortable, ...others} = this.props;
     const props = mergeProps(others, {className: {'sortable': sortable}});
 
     return <th {...props} onClick={this.handleActivate} onKeyDown={this.handleKeyDown} tabIndex="0" role="button" disabled={ !sortable }/>;
@@ -115,7 +115,7 @@ export class Table extends React.Component {
 
   render() {
     const {sortColumn} = this.state;
-    let {data, ...props} = this.props;
+    let {columns, data, ...props} = this.props;
     props = mergeProps(props, {className: ['table', 'table-sortable', 'table-data']});
 
     const rows = (sortColumn === -1) ? this.rows(data) : this.sortedRows();

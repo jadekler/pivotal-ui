@@ -54,9 +54,9 @@ beforeEach(function() {
   };
 
 
-  jasmine.addMatchers({
-    toPassADT: require('./accessibility-developer-tools-matcher')
-  });
+  // jasmine.addMatchers({
+  //   toPassADT: require('./accessibility-developer-tools-matcher')
+  // });
 });
 
 afterEach(function() {

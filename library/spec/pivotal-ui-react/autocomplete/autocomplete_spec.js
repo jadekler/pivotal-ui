@@ -1,6 +1,6 @@
 require('../spec_helper');
 
-describe('Autocomplete', () => {
+xdescribe('Autocomplete', () => {
   let Autocomplete, AutocompleteInput, pickSpy, subject, onInitializeItems;
   beforeEach(() => {
     const Cursor = require('pui-cursor');

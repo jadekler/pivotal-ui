@@ -16,7 +16,7 @@ function defList(tagName, spacingType, classNames, childClassNames) {
     };
 
     render() {
-      var {className, spacing, children, ...others} = this.props;
+      var {className, spacing, children, checked, unstyled, divider, ...others} = this.props;
       var classes = classnames(classNames(this.props), className, spacing && `${spacingType}${spacing}`);
       if (childClassNames) {
         children = React.Children.map(children, child => React.cloneElement(child, {className: childClassNames}));
