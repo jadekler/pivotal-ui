@@ -239,19 +239,19 @@ blockquote {
     padding: 0; //bootstrap override
   }
 
-  .btn-copy {
-    display: none;
-    border-left: 1px solid $shadow-3;
-    border-bottom: 1px solid $shadow-3;
+  //.btn-copy {
+  //  display: none;
+  //  border-left: 1px solid $shadow-3;
+  //  border-bottom: 1px solid $shadow-3;
+  //
+  //  &.zeroclipboard-is-hover {
+  //    display: block;
+  //  }
+  //}
 
-    &.zeroclipboard-is-hover {
-      display: block;
-    }
-  }
-
-  &:hover .btn-copy {
-    display: block;
-  }
+  //&:hover .btn-copy {
+  //  display: block;
+  //}
 }
 
 .codeExample {
@@ -321,19 +321,19 @@ blockquote {
     vertical-align: middle;
     background-color: $bg-color-example-code;
 
-    .btn-copy {
-      display: none;
-      border-left: 1px solid $shadow-2;
-      border-bottom: 1px solid $shadow-2;
-
-      &.zeroclipboard-is-hover {
-        display: block;
-      }
-    }
-
-    &:hover .btn-copy {
-      display: block;
-    }
+    //.btn-copy {
+    //  display: none;
+    //  border-left: 1px solid $shadow-2;
+    //  border-bottom: 1px solid $shadow-2;
+    //
+    //  &.zeroclipboard-is-hover {
+    //    display: block;
+    //  }
+    //}
+    //
+    //&:hover .btn-copy {
+    //  display: block;
+    //}
   }
 
   &.inverse {

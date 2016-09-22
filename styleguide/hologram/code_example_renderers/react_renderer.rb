@@ -14,8 +14,8 @@ Hologram::CodeExampleRenderer::Factory.define 'react' do
   rendered_example do |code|
     div_id = DivId.next_id
     <<-HTML
-      <div id="#{div_id}"></div>
       #{JSXScriptTag.build_script_tag(div_id, code, precompiled: is_precompiled?)}
+      <div id="#{div_id}"></div>
     HTML
   end
 end
